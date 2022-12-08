@@ -1,0 +1,35 @@
+{
+    "name": "robertboes/sidecar-inertia-vite",
+    "description": "A Sidecar function to run Inertia server-side rendering with Vite on Lambda.",
+    "type": "library",
+    "require": {
+        "hammerstone/sidecar": "^0.3.12",
+        "inertiajs/inertia-laravel": "^0.6.4",
+        "php": "^8.0",
+        "illuminate/support": "^9.43"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.15",
+        "mockery/mockery": "^1.5",
+        "phpunit/phpunit": "^9.5"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "RobertBoes\\SidecarInertiaVite\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RobertBoes\\SidecarInertiaVite\\ServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Robert Boes",
+            "email": "2871897+RobertBoes@users.noreply.github.com"
+        }
+    ]
+}
