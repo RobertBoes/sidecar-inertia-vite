@@ -14,11 +14,11 @@ class SidecarGateway implements Gateway
 {
     public function dispatch(array $page): ?Response
     {
-        if (!Config::get('inertia.ssr.enabled', false)) {
+        if (! Config::get('inertia.ssr.enabled', false)) {
             return null;
         }
 
-        if (!$handler = Config::get('sidecar-inertia-vite.handler')) {
+        if (! $handler = Config::get('sidecar-inertia-vite.handler')) {
             return null;
         }
 
@@ -37,7 +37,7 @@ class SidecarGateway implements Gateway
     {
         $handler = app($handler);
 
-        if (!$handler instanceof LambdaFunction) {
+        if (! $handler instanceof LambdaFunction) {
             throw new Exception('The configured Sidecar SSR Handler is not a Sidecar function.');
         }
 
