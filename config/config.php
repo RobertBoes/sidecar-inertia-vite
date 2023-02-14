@@ -14,6 +14,8 @@ return [
     // If set to false the node_modules folder will be added to the bundle
     'bundle' => true,
 
+    'vite_ssr_bundle_location' => 'bootstrap/ssr/ssr.mjs',
+
     // Log some stats on how long each Lambda request takes.
     'timings' => false,
 
