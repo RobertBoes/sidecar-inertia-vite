@@ -92,7 +92,7 @@ class SSRFunction extends LambdaFunction
 
         Sidecar::log('Optimizing bundle: Running NCC to compile SSR with node_modules bundled in');
 
-        $command = 'npx --yes @vercel/ncc build '. config('sidecar-inertia-vite.vite_ssr_bundle_location') .' --out=bootstrap/sidecar-ssr';
+        $command = 'npx --yes @vercel/ncc build '.config('sidecar-inertia-vite.vite_ssr_bundle_location').' --out=bootstrap/sidecar-ssr';
 
         Sidecar::log("Optimizing bundle: Running \"{$command}\"");
 
