@@ -94,7 +94,7 @@ Now update your `config/sidecar.php` to include the function shipped with this p
 
 return [
     'functions' => [
-        \RobertBoes\SidecarInertiaVite\SSRFunction::class
+        \RobertBoes\SidecarInertiaVite\SSRFunction::class,
     ],
     
     // ...
@@ -161,7 +161,7 @@ This will compile your JavaScript for you as a `beforeDeployment` hook, so you d
 
 It's recommended that you deploy your Sidecar function locally so that you can test SSR more quickly. You can run `php artisan sidecar:deploy --activate` from your local machine and your SSR function will be deployed to Lambda.
 
-You can also set `ssr.sidecar.debug` to `true` in your `config/inertia.php` file, so that Sidecar will throw exceptions when SSR fails instead of falling back to client-side rendering. This will help you diagnose issues quickly. 
+You can also set `debug` to `true` in your `config/sidecar-inertia-vite.php` file, so that Sidecar will throw exceptions when SSR fails instead of falling back to client-side rendering. This will help you diagnose issues quickly. 
 
 ## A note on Ziggy
 
