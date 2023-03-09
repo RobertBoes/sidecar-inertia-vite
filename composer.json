@@ -6,7 +6,7 @@
         "hammerstone/sidecar": "^0.3",
         "inertiajs/inertia-laravel": "^0.6",
         "php": "^8.0",
-        "illuminate/support": "^9"
+        "illuminate/support": "^9|^10"
     },
     "require-dev": {
         "orchestra/testbench": "^7.15",
