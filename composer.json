@@ -3,7 +3,7 @@
     "description": "A Sidecar function to run Inertia server-side rendering with Vite on Lambda.",
     "type": "library",
     "require": {
-        "hammerstone/sidecar": "^0.3",
+        "hammerstone/sidecar": "^0.4",
         "inertiajs/inertia-laravel": "^0.6",
         "php": "^8.0",
         "illuminate/support": "^9|^10"
