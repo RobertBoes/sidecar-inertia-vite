@@ -26,7 +26,7 @@ class SSRFunction extends LambdaFunction
         return Config::get('sidecar-inertia-vite.memory', 1024);
     }
 
-    public function handler()
+    public function handler(): string
     {
         return $this->shouldBundle() ? 'index.handler' : 'ssr.handler';
     }
