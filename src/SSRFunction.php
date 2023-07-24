@@ -11,17 +11,17 @@ use Symfony\Component\Process\Process;
 
 class SSRFunction extends LambdaFunction
 {
-    public function name()
+    public function name(): string
     {
         return Config::get('sidecar-inertia-vite.name', 'Inertia-SSR-Vite');
     }
 
-    public function runtime()
+    public function runtime(): string
     {
         return Config::get('sidecar-inertia-vite.runtime', Runtime::NODEJS_16);
     }
 
-    public function memory()
+    public function memory(): int
     {
         return Config::get('sidecar-inertia-vite.memory', 1024);
     }
@@ -31,7 +31,7 @@ class SSRFunction extends LambdaFunction
         return $this->shouldBundle() ? 'index.handler' : 'ssr.handler';
     }
 
-    public function package()
+    public function package(): Package
     {
         if ($this->shouldBundle()) {
             return Package::make()
@@ -51,7 +51,7 @@ class SSRFunction extends LambdaFunction
         return $package;
     }
 
-    public function beforeDeployment()
+    public function beforeDeployment(): void
     {
         Sidecar::log('Executing beforeDeployment hooks');
 
