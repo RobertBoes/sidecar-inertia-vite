@@ -7,7 +7,7 @@ use Hammerstone\Sidecar\Package;
 use Hammerstone\Sidecar\Runtime;
 use Hammerstone\Sidecar\Sidecar;
 use Illuminate\Support\Facades\Config;
-use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\Process;
 
 class SSRFunction extends LambdaFunction
 {
@@ -74,10 +74,12 @@ class SSRFunction extends LambdaFunction
 
         Sidecar::log("Build: Running \"{$command}\"");
 
-        $process = new Process(explode(' ', $command), $cwd = base_path(), $env = []);
-
-        // mustRun will throw an exception if it fails, which is what we want.
-        $process->setTimeout(60)->disableOutput()->mustRun();
+        Process::newPendingProcess()
+            ->timeout(60)
+            ->path(base_path())
+            ->quietly()
+            ->run($command)
+            ->throw();
 
         Sidecar::log('Build: JavaScript SSR bundle compiled!');
     }
@@ -96,10 +98,12 @@ class SSRFunction extends LambdaFunction
 
         Sidecar::log("Optimizing bundle: Running \"{$command}\"");
 
-        $process = new Process(explode(' ', $command), $cwd = base_path(), $env = []);
-
-        // mustRun will throw an exception if it fails, which is what we want.
-        $process->setTimeout(60)->disableOutput()->mustRun();
+        Process::newPendingProcess()
+            ->timeout(60)
+            ->path(base_path())
+            ->quietly()
+            ->run($command)
+            ->throw();
 
         Sidecar::log('Optimizing bundle: Package bundled with NCC!');
     }
