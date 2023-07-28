@@ -5,7 +5,6 @@ namespace RobertBoes\SidecarInertiaVite;
 use Exception;
 use Hammerstone\Sidecar\LambdaFunction;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
 use Inertia\Ssr\Gateway;
 use Inertia\Ssr\Response;
 use RobertBoes\SidecarInertiaVite\Cache\CacheStrategy;

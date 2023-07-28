@@ -5,8 +5,8 @@ namespace RobertBoes\SidecarInertiaVite;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Inertia\Ssr\Gateway;
-use RobertBoes\SidecarInertiaVite\Cache\PageHashStrategy;
 use RobertBoes\SidecarInertiaVite\Cache\CacheStrategy;
+use RobertBoes\SidecarInertiaVite\Cache\PageHashStrategy;
 
 class ServiceProvider extends BaseServiceProvider
 {

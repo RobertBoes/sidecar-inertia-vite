@@ -13,5 +13,4 @@ class TestCase extends Orchestra
             SidecarInertiaViteProvider::class,
         ];
     }
-
 }
