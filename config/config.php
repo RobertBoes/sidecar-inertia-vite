@@ -1,5 +1,6 @@
 <?php
 
+use RobertBoes\SidecarInertiaVite\Cache\PageHashStrategy;
 use RobertBoes\SidecarInertiaVite\SSRFunction;
 
 return [
@@ -22,4 +23,10 @@ return [
 
     // Compile Ziggy routes with the Lambda function.
     'ziggy' => false,
+
+    'cache' => [
+        'enabled' => env('SIDECAR_INERTIA_VITE_CACHE_ENABLED', false),
+        'strategy' => PageHashStrategy::class,
+        'ttl' => 30,
+    ],
 ];

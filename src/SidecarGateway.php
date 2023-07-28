@@ -8,10 +8,17 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Inertia\Ssr\Gateway;
 use Inertia\Ssr\Response;
+use RobertBoes\SidecarInertiaVite\Cache\CacheStrategy;
 use Throwable;
 
 class SidecarGateway implements Gateway
 {
+    public function __construct(
+        protected CacheStrategy $cache
+    ) {
+        //
+    }
+
     public function dispatch(array $page): ?Response
     {
         if (! Config::get('inertia.ssr.enabled', false)) {
@@ -41,17 +48,11 @@ class SidecarGateway implements Gateway
             throw new Exception('The configured Sidecar SSR Handler is not a Sidecar function.');
         }
 
-        $result = $handler::execute($page)->throw();
-
-        if (Config::get('sidecar-inertia-vite.timings')) {
-            Log::info('Sending SSR request to Lambda', $result->report());
-        }
-
-        $response = $result->body();
+        [$head, $body] = $this->cache->execute($page, $handler);
 
         return new Response(
-            implode("\n", $response['head']),
-            $response['body']
+            head: implode("\n", $head),
+            body: $body,
         );
     }
 }

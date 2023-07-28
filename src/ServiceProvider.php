@@ -5,6 +5,8 @@ namespace RobertBoes\SidecarInertiaVite;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Inertia\Ssr\Gateway;
+use RobertBoes\SidecarInertiaVite\Cache\PageHashStrategy;
+use RobertBoes\SidecarInertiaVite\Cache\CacheStrategy;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -22,7 +24,17 @@ class ServiceProvider extends BaseServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'sidecar-inertia-vite');
 
         if (Config::get('sidecar-inertia-vite.ssr_gateway_enabled', false)) {
-            $this->app->instance(Gateway::class, new SidecarGateway());
+            $this->app->bind(
+                abstract: Gateway::class,
+                concrete: SidecarGateway::class,
+            );
+        }
+
+        if (Config::get('sidecar-inertia-vite.cache.enabled', false)) {
+            $this->app->bind(
+                abstract: CacheStrategy::class,
+                concrete: Config::get('sidecar-inertia-vite.cache.strategy', PageHashStrategy::class),
+            );
         }
     }
 }
