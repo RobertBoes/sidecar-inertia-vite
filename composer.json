@@ -20,6 +20,17 @@
             "RobertBoes\\SidecarInertiaVite\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "RobertBoes\\SidecarInertiaVite\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage",
+        "format": "vendor/bin/pint"
+    },
     "extra": {
         "laravel": {
             "providers": [

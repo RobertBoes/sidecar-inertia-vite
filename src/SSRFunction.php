@@ -7,31 +7,31 @@ use Hammerstone\Sidecar\Package;
 use Hammerstone\Sidecar\Runtime;
 use Hammerstone\Sidecar\Sidecar;
 use Illuminate\Support\Facades\Config;
-use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\Process;
 
 class SSRFunction extends LambdaFunction
 {
-    public function name()
+    public function name(): string
     {
         return Config::get('sidecar-inertia-vite.name', 'Inertia-SSR-Vite');
     }
 
-    public function runtime()
+    public function runtime(): string
     {
         return Config::get('sidecar-inertia-vite.runtime', Runtime::NODEJS_16);
     }
 
-    public function memory()
+    public function memory(): int
     {
         return Config::get('sidecar-inertia-vite.memory', 1024);
     }
 
-    public function handler()
+    public function handler(): string
     {
         return $this->shouldBundle() ? 'index.handler' : 'ssr.handler';
     }
 
-    public function package()
+    public function package(): Package
     {
         if ($this->shouldBundle()) {
             return Package::make()
@@ -51,7 +51,7 @@ class SSRFunction extends LambdaFunction
         return $package;
     }
 
-    public function beforeDeployment()
+    public function beforeDeployment(): void
     {
         Sidecar::log('Executing beforeDeployment hooks');
 
@@ -74,10 +74,12 @@ class SSRFunction extends LambdaFunction
 
         Sidecar::log("Build: Running \"{$command}\"");
 
-        $process = new Process(explode(' ', $command), $cwd = base_path(), $env = []);
-
-        // mustRun will throw an exception if it fails, which is what we want.
-        $process->setTimeout(60)->disableOutput()->mustRun();
+        Process::newPendingProcess()
+            ->timeout(60)
+            ->path(base_path())
+            ->quietly()
+            ->run($command)
+            ->throw();
 
         Sidecar::log('Build: JavaScript SSR bundle compiled!');
     }
@@ -96,10 +98,12 @@ class SSRFunction extends LambdaFunction
 
         Sidecar::log("Optimizing bundle: Running \"{$command}\"");
 
-        $process = new Process(explode(' ', $command), $cwd = base_path(), $env = []);
-
-        // mustRun will throw an exception if it fails, which is what we want.
-        $process->setTimeout(60)->disableOutput()->mustRun();
+        Process::newPendingProcess()
+            ->timeout(60)
+            ->path(base_path())
+            ->quietly()
+            ->run($command)
+            ->throw();
 
         Sidecar::log('Optimizing bundle: Package bundled with NCC!');
     }
